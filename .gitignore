@@ -1,0 +1,8 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.DS_Store
+
+# Ambiente virtual
+venv/
