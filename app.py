@@ -1,13 +1,10 @@
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
-from urllib.parse import unquote
-from sqlalchemy.exc import IntegrityError
-from models.game_service import Game
-from models.db import Session
+from models.game_service import game_list, add_game, delete_game
 from schemas.game_schema import GameSchema, GameViewSchema, GameListSchema, GameDeleteSchema, game_presented, games_presented
+from models.error import GameNotFoundError, GameAlreadyExistsError, DatabaseError, NoGamesFoundError
 from schemas.error import ErrorSchema
 from flask_cors import CORS
-import json
 
 info = Info(title="Game Collection API", version="1.0.0")
 app = OpenAPI(__name__, info=info)
@@ -24,62 +21,42 @@ def home():
 
 @app.post('/game', tags=[game_tag],
           responses={"200": GameViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_game(form: GameSchema):
+def add_new_game(form: GameSchema):
     """Adds a new game to the collection
 
     Returns a representation of the created game.
     """
-    new_game = Game(
-        name=form.name,
-        platform=form.platform,
-        release_date=form.release_date,
-        developer=form.developer,
-        condition=form.condition
-    )
-
     try:
-        session = Session()
-        session.add(new_game)
-        session.commit()
+        new_game = add_game(form.name, form.platform, form.release_date, form.developer, form.condition)
         return game_presented(new_game), 200
-
-    except IntegrityError:
-        error_msg = "A game with the same name already exists in the database."
-        return {"message": error_msg}, 409
-
-    except Exception:
-        error_msg = "Unable to save the new game."
-        return {"message": error_msg}, 400
+    except GameAlreadyExistsError as e:
+        return {"error": e.message}, e.status_code
+    except DatabaseError as e:
+        return {"error": e.message}, e.status_code
 
 @app.get('/games', tags=[game_tag],
          responses={"200": GameListSchema, "404": ErrorSchema})
-def game_list():
-    """Fetches all games registered in the collection
+def list_games():
+    """Gets the list of all the games registered in the collection
 
     Returns a list of games.
     """
-    session = Session()
-    games = session.query(Game).all()
-
-    if not games:
-        return {"games": []}, 200
-    else:
+    games = game_list()
+    try:
         return games_presented(games), 200
+    except NoGamesFoundError as e:
+        return {"error": e.message}, e.status_code
 
 @app.delete('/game', tags=[game_tag],
             responses={"200": GameDeleteSchema, "404": ErrorSchema})
-def delete_game(query: GameDeleteSchema):
-    """Deletes a game based on the provided ID
+def remove_game(query: GameDeleteSchema):
+    """Removes a game from the collection, based on the provided Game ID
 
     Returns a confirmation message upon removal.
     """
     game_id = query.game_id
-    session = Session()
-    count = session.query(Game).filter(Game.game_id == game_id).delete()
-    session.commit()
-
-    if count:
-        return {"message": "Game removed", "game_id": game_id}, 200
-    else:
-        error_msg = "Game not found in the database."
-        return {"message": error_msg}, 404
+    try:
+        delete_game(game_id)
+        return {"message": "Game removed successfully from the collection", "game_id": game_id}, 200
+    except GameNotFoundError as e:
+        return {"error": e.message}, e.status_code

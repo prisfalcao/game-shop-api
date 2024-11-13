@@ -4,7 +4,7 @@ from datetime import date
 from models.game_service import Game
 
 class GameSchema(BaseModel):
-    """ Defines the structure for data needed to add a new game to the collection """
+    """Defines the structure for data needed to add a new game to the collection."""
     name: str
     platform: str
     release_date: date
@@ -12,7 +12,7 @@ class GameSchema(BaseModel):
     condition: str
 
 class GameViewSchema(BaseModel):
-    """ Defines how a single game will be returned for detailed view """
+    """Defines how a single game will be returned for detailed view."""
     game_id: int
     name: str
     platform: str
@@ -21,11 +21,11 @@ class GameViewSchema(BaseModel):
     condition: str
 
 class GameListSchema(BaseModel):
-    """ Defines how a list of games will be returned """
+    """Defines how a list of games will be returned."""
     games: List[GameViewSchema]
 
 def games_presented(games: List[Game]):
-    """ Returns a representation of games following the schema defined in GameListSchema """
+    """Returns a representation of games following the schema defined in GameListSchema."""
     result = []
     for game in games:
         result.append({
@@ -39,11 +39,11 @@ def games_presented(games: List[Game]):
     return {"games": result}
 
 class GameDeleteSchema(BaseModel):
-    """ Defines the structure of the data returned after a delete request """
+    """Defines the structure of the data returned after a delete request."""
     game_id: int
 
 def game_presented(game: Game):
-    """ Returns a representation of a single game following the schema defined in GameViewSchema """
+    """Returns a representation of a single game following the schema defined in GameViewSchema."""
     return {
         "game_id": game.game_id,
         "name": game.name,

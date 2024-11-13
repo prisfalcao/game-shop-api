@@ -2,6 +2,8 @@ from sqlalchemy import Column, String, Integer, Date
 from datetime import date
 from models.base import Base
 from models.db import Session
+from sqlalchemy.exc import IntegrityError
+from models.error import GameNotFoundError, GameAlreadyExistsError, DatabaseError, NoGamesFoundError
 
 class Game(Base):
     __tablename__ = 'my_game_collection'
@@ -24,10 +26,16 @@ def add_game(name: str, platform: str, release_date: date, developer: str, condi
     """Adds a new game to the database"""
     session = Session()
     try:
-        new_game = Game(name, platform, release_date, developer, condition)
-        session.add(new_game)
+        game = Game(name, platform, release_date, developer, condition)
+        session.add(game)
         session.commit()
-        return new_game
+        session.refresh(game)
+        return game
+    
+    except IntegrityError:
+        raise GameAlreadyExistsError()
+    except Exception:
+        raise DatabaseError("Unable to save the new game")
     finally:
         session.close()
 
@@ -37,6 +45,8 @@ def game_list():
     try:
         games = session.query(Game).all()
         return games
+    except Exception:
+        raise NoGamesFoundError()
     finally:
         session.close()
 
@@ -48,8 +58,8 @@ def delete_game(game_id: int):
         if game:
             session.delete(game)
             session.commit()
-            print(f"Game with ID {game_id} removed successfully!")
+            return True
         else:
-            print(f"Game with ID {game_id} was not found.")
+            raise GameNotFoundError()
     finally:
         session.close()
