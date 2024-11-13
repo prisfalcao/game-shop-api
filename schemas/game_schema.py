@@ -4,7 +4,7 @@ from datetime import date
 from models.game_service import Game
 
 class GameSchema(BaseModel):
-    """ Defines how a new game to be inserted to the collection must be represented """
+    """ Defines the structure for data needed to add a new game to the collection """
     name: str
     platform: str
     release_date: date
@@ -45,7 +45,7 @@ class GameDeleteSchema(BaseModel):
 def game_presented(game: Game):
     """ Returns a representation of a single game following the schema defined in GameViewSchema """
     return {
-        "game_id": game.id,
+        "game_id": game.game_id,
         "name": game.name,
         "platform": game.platform,
         "release_date": game.release_date,

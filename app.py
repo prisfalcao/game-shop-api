@@ -7,6 +7,7 @@ from models.db import Session
 from schemas.game_schema import GameSchema, GameViewSchema, GameListSchema, GameDeleteSchema, game_presented, games_presented
 from schemas.error import ErrorSchema
 from flask_cors import CORS
+import json
 
 info = Info(title="Game Collection API", version="1.0.0")
 app = OpenAPI(__name__, info=info)
