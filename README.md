@@ -38,7 +38,7 @@ A **Game Collection API** é uma API RESTful desenvolvida em Python com Flask, q
     * DELETE	/game	- Remove um jogo pelo ID  
 
 ### Contribuindo: 
-Contribuições são bem-vindas! Para relatar bugs, sugerir melhorias ou enviar pull requests, por favor, abra uma issue no repositório.
+Contribuições são bem-vindas! Para relatar bugs ou sugerir melhorias, por favor, abra uma issue no repositório.
 
 ------------------------------------------------
 # Game Collection API
@@ -78,4 +78,4 @@ The **Game Collection API** is a RESTful API developed in Python with Flask that
     * DELETE	/game	- Removes a game by ID 
 
 ### Contributing:
-Contributions are welcome! To report bugs, suggest improvements, or submit pull requests, please open an issue in the repository.
+Contributions are welcome! To report bugs or suggest improvements, please open an issue in the repository.
