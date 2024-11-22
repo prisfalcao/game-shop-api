@@ -19,7 +19,7 @@ A **Game Collection API** é uma API RESTful desenvolvida em Python com Flask, q
 3. É fortemente indicado o uso de ambientes virtuais do tipo [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
 4. Instale as dependências com o comando:
    ```bash 
-   pip install -r requirements.txt no terminal.
+   pip install -r requirements.txt
 
 ### Executando o projeto:
 
