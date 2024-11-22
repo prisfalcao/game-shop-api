@@ -5,10 +5,13 @@ from schemas.game_schema import GameSchema, GameViewSchema, GameListSchema, Game
 from models.error import GameNotFoundError, GameAlreadyExistsError, DatabaseError, NoGamesFoundError
 from schemas.error import ErrorSchema
 from flask_cors import CORS
+from models.db import create_tables
 
 info = Info(title="Game Collection API", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
+
+create_tables()
 
 home_tag = Tag(name="Documentation", description="Selection of documentation: Swagger, Redoc or RapiDoc")
 game_tag = Tag(name="Game", description="Add, view, and delete games from the collection")
