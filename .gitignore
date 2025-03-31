@@ -6,3 +6,7 @@ __pycache__/
 
 # Ambiente virtual
 venv/
+env/
+
+*.pyc
+*.sqlite3

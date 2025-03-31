@@ -9,7 +9,7 @@ class GameNotFoundError(Exception):
 class NoGamesFoundError(Exception):
     """Exception thrown when there are no games in the database."""
 
-    def __init__(self, message="There are no games in the collection yet, please add a new game.", status_code=404):
+    def __init__(self, message="There are no games in the store catalog yet, please add a new game.", status_code=404):
         self.message = message
         self.status_code = status_code
         super().__init__(self.message)
@@ -17,7 +17,7 @@ class NoGamesFoundError(Exception):
 class GameAlreadyExistsError(Exception):
     """Exception thrown when a game with the same name already exists in the database."""
 
-    def __init__(self, message="A game with the same name already exists in the collection.", status_code=409):
+    def __init__(self, message="A game with the same name already exists in the store catalog.", status_code=409):
         self.message = message
         self.status_code = status_code
         super().__init__(self.message)
