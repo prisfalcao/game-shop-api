@@ -42,6 +42,7 @@ A **Game Shop API** é uma API RESTful desenvolvida em Python com Flask, que per
    ```bash
    docker build -t game-shop-api .
    docker run -p 5000:5000 game-shop-api
+   No navegador accesse http://127.0.0.1:5000
 
 ### Contribuindo: 
 Contribuições são bem-vindas! Para relatar bugs ou sugerir melhorias, por favor, abra uma issue no repositório.
@@ -91,6 +92,7 @@ The **Game Shop API** is a RESTful API developed in Python with Flask that allow
    ```bash
    docker build -t game-shop-api .
    docker run -p 5000:5000 game-shop-api
+   In your browser access http://127.0.0.1:5000
 
 ### Contributing:
 Contributions are welcome! To report bugs or suggest improvements, please open an issue in the repository.
