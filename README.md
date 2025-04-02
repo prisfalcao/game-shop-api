@@ -35,12 +35,13 @@ A **Game Shop API** é uma API RESTful desenvolvida em Python com Flask, que per
     * PUT  /game - Edita detalhes de estoque e preço de um jogo existente no banco de dados local, através do seu ID;
     * DELETE	/game	- Remove um jogo pelo ID.
 
-    A rota POST /admin-import-games requer um token de admin para ser executada. O token é: admin-secret-token
+    As rotas de POST, PUT e DELETE requerem um token de admin para serem executadas. O token é: admin-secret-token
 
 ### Executando o projeto via Docker:
-No terminal do projeto digite os seguintes comandos:
-docker build -t game-shop-api .
-docker run -p 5000:5000 game-shop-api
+1. No terminal do projeto digite os seguintes comandos:
+   ```bash
+   docker build -t game-shop-api .
+   docker run -p 5000:5000 game-shop-api
 
 ### Contribuindo: 
 Contribuições são bem-vindas! Para relatar bugs ou sugerir melhorias, por favor, abra uma issue no repositório.
@@ -83,11 +84,13 @@ The **Game Shop API** is a RESTful API developed in Python with Flask that allow
     * PUT  /game - Edits the stock and price details of an existing game in the local database, using its ID;
     * DELETE /game - Removes a game by ID
 
-    The route POST /admin-import-games will require an admin token, it is: admin-secret-token
+    The routes for POST, PUT and DELETE will require an admin token, it is: admin-secret-token
 
 ### Running the project on Docker:
-docker build -t game-shop-api .
-docker run -p 5000:5000 game-shop-api
+1. On your terminal run the following commands:
+   ```bash
+   docker build -t game-shop-api .
+   docker run -p 5000:5000 game-shop-api
 
 ### Contributing:
 Contributions are welcome! To report bugs or suggest improvements, please open an issue in the repository.
